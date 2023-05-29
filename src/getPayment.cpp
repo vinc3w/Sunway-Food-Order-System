@@ -3,7 +3,6 @@
 
 Order& Order::getPayment()
 {
-	const auto mergedMenuItems{ getMergedMenuItems() };
 	while (true)
 	{
 		std::cout << "\nPayment amount: ";
@@ -33,7 +32,7 @@ Order& Order::getPayment()
 				std::find_if(
 					mergedMenuItems.begin(),
 					mergedMenuItems.end(),
-					[&mergedMenuItems, item](const auto& menuItem) { return menuItem.first == item; }
+					[item](const auto& menuItem) { return menuItem.first == item; }
 				)
 			};
 			double price{ mergedMenuItems[std::distance(mergedMenuItems.begin(), it)].second };

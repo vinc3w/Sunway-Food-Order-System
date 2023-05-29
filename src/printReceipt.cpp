@@ -3,6 +3,7 @@
 #include <random>
 #include <chrono>
 #include <cmath>
+#include <string>
 #include <iostream>
 
 int randomInt(int length)
@@ -22,21 +23,31 @@ int randomInt(int length)
 	return dist(mt);
 }
 
+std::string getTime()
+{
+	const auto now{
+		std::chrono::current_zone()->
+		to_local(std::chrono::system_clock::now()) 
+	};
+	std::string time{};
+	time += std::format("{:%D}", now);
+	time += "    ";
+	time += std::format("{:%r}", now);
+	return time;
+}
+
 Order& Order::printReceipt(double totalPrice, double payment)
 {
+
 	std::cout << "\n"
 				 "-----------------------------------------\n"
 				 "|                                       |\n"
 				 "|                RECEIPT                |\n"
 				 "|                                       |\n"
 				 "| * * * * * * * * * * * * * * * * * * * |\n"
-				 "| Sunway        " <<
-				 std::format("{:%D}", std::chrono::system_clock::now()) << "    " <<
-				 std::format("{:%r}", std::chrono::system_clock::now()) << " |\n"
+				 "| Sunway        " << getTime() << " |\n"
 				 "| * * * * * * * * * * * * * * * * * * * |\n"
 				 "|                                       |\n";
-
-	const auto mergedMenuItems{ getMergedMenuItems() };
 
 	for (const auto& [item, count] : orders)
 	{
@@ -44,7 +55,7 @@ Order& Order::printReceipt(double totalPrice, double payment)
 			std::find_if(
 				mergedMenuItems.begin(),
 				mergedMenuItems.end(),
-				[&mergedMenuItems, item](const auto& menuItem) { return menuItem.first == item; }
+				[item](const auto& menuItem) { return menuItem.first == item; }
 			)
 		};
 		double price{ mergedMenuItems[std::distance(mergedMenuItems.begin(), it)].second };

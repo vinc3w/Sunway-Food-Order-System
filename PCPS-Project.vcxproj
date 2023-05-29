@@ -132,16 +132,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="PCPS-Project.cpp" />
-    <ClCompile Include="src\editOrders.cpp" />
-    <ClCompile Include="src\getMergedMenuItems.cpp" />
     <ClCompile Include="src\getOrders.cpp" />
     <ClCompile Include="src\getPayment.cpp" />
-    <ClCompile Include="src\insertOrders.cpp" />
     <ClCompile Include="src\printMenu.cpp" />
     <ClCompile Include="src\printOrders.cpp" />
     <ClCompile Include="src\printReceipt.cpp" />
-    <ClCompile Include="src\removeOrders.cpp" />
-    <ClCompile Include="src\startOrder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\order.h" />

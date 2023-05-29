@@ -5,7 +5,6 @@
 
 Order& Order::printOrders()
 {
-	const auto mergedMenuItems{ getMergedMenuItems() };
 	std::cout << "\n"
 				 "-------------------------------------------------\n"
 				 "|                  YOUR ORDERS                  |\n"
@@ -13,25 +12,33 @@ Order& Order::printOrders()
 				 "|                                               |\n";
 
 	int i{ 1 };
+	double totalPrice{};
 	for (const auto& [item, count] : orders)
 	{
 		auto it{
 			std::find_if(
 				mergedMenuItems.begin(),
 				mergedMenuItems.end(),
-				[&mergedMenuItems, item](const auto& menuItem) { return menuItem.first == item; }
+				[item](const auto& menuItem) { return menuItem.first == item; }
 			)
 		};
 		double price{ mergedMenuItems[std::distance(mergedMenuItems.begin(), it)].second };
+		totalPrice += price * count;
 		std::cout << "| " << std::setw(2) << i << ". "
 				  << "x" << std::left << std::setw(3) << count
-				  << " " << std::setw(28) << item.substr(0, 28) << "RM"
+				  << " " << std::setw(26) << item.substr(0, 26) << " RM "
 				  << std::setprecision(2) << std::right << std::fixed << std::setw(6) << price * count
 				  << " |\n";
 		++i;
 	}
 
 	std::cout << "|                                               |\n"
+				 "|-----------------------------------------------|\n"
+				 "|                                               |\n"
+				 "| Total:                              RM " <<
+				 std::setprecision(2) << std::fixed << std::setw(6) << totalPrice <<
+				 " |\n"
+				 "|                                               |\n"
 				 "-------------------------------------------------\n";
 
 	return *this;

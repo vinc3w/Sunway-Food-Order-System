@@ -3,8 +3,9 @@
 
 Order& Order::getOrders()
 {
+	printMenu();
 	std::cout << "\nHello, what do you want to order?\n";
-	const auto mergedMenuItems{ getMergedMenuItems() };
+
 	while (true)
 	{
 		std::cout << "Enter the number of the order: ";
@@ -33,24 +34,28 @@ Order& Order::getOrders()
 			if (orders.empty())
 				std::cout << "\nDont waste my time. EITHER ORDER OR STAY AWAY!!!\n";
 			else
-				editOrders();
+			{
+				printOrders();
+				getPayment();
+			}
 			break;
 		}
 
-		auto itemToFind{ mergedMenuItems[input - 1] };
-		auto doesItemExist{
+		auto menuItem{ mergedMenuItems[input - 1] };
+		auto it{
 			std::find_if(
 				orders.begin(),
 				orders.end(),
-				[&itemToFind](const auto& item) { return item.first == itemToFind.first; }
+				[&menuItem](const auto& item) { return item.first == menuItem.first; }
 			)
 		};
-		if (doesItemExist == orders.end())
-			orders.push_back(std::pair(itemToFind.first, 1));
+		if (it == orders.end())
+			orders.push_back(std::pair(menuItem.first, 1));
 		else
-			++orders[std::distance(orders.begin(), doesItemExist)].second;
+			++orders[std::distance(orders.begin(), it)].second;
 
-		std::cout << "\nIf you do not wish to order anymore, enter '0'\n";
+		std::cout << "\nAdded " << menuItem.first <<
+					 "\nIf you do not wish to order anymore, enter '0'\n";
 	}
 	return *this;
 }

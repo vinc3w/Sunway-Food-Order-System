@@ -4,7 +4,9 @@
 #include <string_view>
 #include <vector>
 
-using OrderPair = std::vector<std::pair<std::string_view, double>>;
+using Price = double;
+using Count = int;
+using OrderPair = std::vector<std::pair<std::string_view, Price>>;
 
 class Order
 {
@@ -27,20 +29,26 @@ private:
 		{"Vanilla Ice-cream", 3},
 		{"Fresh Cut Fruit", 0}
 	}};
-	std::vector<std::pair<std::string_view, int>> orders{};
-public:
+
+	OrderPair mergedMenuItems{};
+	std::vector<std::pair<std::string_view, Count>> orders{};
+
 	Order& printMenu();
 	Order& printOrders();
-	Order& getOrders();
-	Order& editOrders();
 	Order& getPayment();
 	Order& printReceipt(double totalPrice, double payment);
+public:
+	Order()
+	{
+		for (const auto& pair : appetizers)
+			mergedMenuItems.push_back(pair);
+		for (const auto& pair : mains)
+			mergedMenuItems.push_back(pair);
+		for (const auto& pair : deserts)
+			mergedMenuItems.push_back(pair);
+	}
 
-	OrderPair getMergedMenuItems();
-
-	void removeOrders();
-	void insertOrders();
-	void startOrder();
+	Order& getOrders();
 };
 
 #endif

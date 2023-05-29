@@ -3,6 +3,6 @@
 
 int main()
 {
-    Order{}.startOrder();
+    Order{}.getOrders();
     return 0;
 }
