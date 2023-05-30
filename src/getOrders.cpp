@@ -46,7 +46,7 @@ Order& Order::getOrders()
 			break;
 		}
 
-		auto menuItem{ mergedMenuItems[input - 1] };
+		const auto menuItem{ mergedMenuItems[input - 1] };
 		auto it{
 			std::find_if(
 				orders.begin(),

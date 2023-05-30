@@ -40,7 +40,7 @@ Order& Order::getPayment()
 					[item](const auto& menuItem) { return menuItem.first == item; }
 				)
 			};
-			double price{ mergedMenuItems[std::distance(mergedMenuItems.begin(), it)].second };
+			const double price{ mergedMenuItems[std::distance(mergedMenuItems.begin(), it)].second };
 			totalPrice += price * count;
 		}
 		if (payment < totalPrice)

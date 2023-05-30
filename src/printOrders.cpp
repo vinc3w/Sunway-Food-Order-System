@@ -22,7 +22,7 @@ Order& Order::printOrders()
 				[item](const auto& menuItem) { return menuItem.first == item; }
 			)
 		};
-		double price{ mergedMenuItems[std::distance(mergedMenuItems.begin(), it)].second };
+		const double price{ mergedMenuItems[std::distance(mergedMenuItems.begin(), it)].second };
 		totalPrice += price * count;
 		std::cout << "| " << std::setw(2) << i << ". "
 				  << "x" << std::left << std::setw(3) << count

@@ -40,7 +40,7 @@ Order& Order::printReceipt(double totalPrice, double payment)
 				[item](const auto& menuItem) { return menuItem.first == item; }
 			)
 		};
-		double price{ mergedMenuItems[std::distance(mergedMenuItems.begin(), it)].second };
+		const double price{ mergedMenuItems[std::distance(mergedMenuItems.begin(), it)].second };
 		std::cout << "| "
 				  << "x" << std::left << std::setw(3) << count
 				  << " " << std::setw(22) << item.substr(0, 22) << " RM "
