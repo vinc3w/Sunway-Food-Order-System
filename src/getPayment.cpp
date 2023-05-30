@@ -13,11 +13,16 @@ Order& Order::getPayment()
 		{
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout << "\nPayment must be a number, silly :-)\n";
+			std::cout << "\nPayment must be a number, dumb dumb :-)\n";
 			continue;
 		}
 
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		if (std::cin.peek() != 10)
+		{
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "\nPayment must ONLY be a number, silly :(\n";
+			continue;
+		}
 
 		if (payment < 0)
 		{

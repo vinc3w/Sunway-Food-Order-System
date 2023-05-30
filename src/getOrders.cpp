@@ -21,7 +21,12 @@ Order& Order::getOrders()
 			continue;
 		}
 
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		if (std::cin.peek() != 10)
+		{
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "\nPayment must ONLY be a number, silly :(\n";
+			continue;
+		}
 
 		if (input < 0 || input > mergedMenuItems.size())
 		{
