@@ -1,27 +1,9 @@
 #include "./../include/order.h"
+#include "./../include/randomInt.h"
 #include <iomanip>
-#include <random>
 #include <chrono>
-#include <cmath>
 #include <string>
 #include <iostream>
-
-int randomInt(int length)
-{
-	std::random_device rd{};
-	std::seed_seq ss{
-		static_cast<std::mt19937::result_type>(
-			std::chrono::steady_clock::now().time_since_epoch().count()
-		),
-		rd(), rd(), rd(), rd(), rd(), rd(), rd(), rd()
-	};
-	std::mt19937 mt{ ss };
-	std::uniform_int_distribution dist{
-		static_cast<int>(std::pow(10, length - 1)),
-		static_cast<int>(std::pow(10, length))
-	};
-	return dist(mt);
-}
 
 std::string getTime()
 {
@@ -38,7 +20,7 @@ std::string getTime()
 
 Order& Order::printReceipt(double totalPrice, double payment)
 {
-
+	RandomInt rand{};
 	std::cout << "\n"
 				 "-----------------------------------------\n"
 				 "|                                       |\n"
@@ -85,9 +67,9 @@ Order& Order::printReceipt(double totalPrice, double payment)
 				 "|                                       |\n"
 
 				 "| Bank No.          " <<
-				 randomInt(4) << " " << randomInt(4) << " " << randomInt(4) <<  " " << randomInt(4) <<
+				 rand.get(4) << " " << rand.get(4) << " " << rand.get(4) <<  " " << rand.get(4) <<
 				 " |\n"
-				 "| Pin:                           " << randomInt(6) << " |\n"
+				 "| Pin:                           " << rand.get(6) << " |\n"
 
 				 "|                                       |\n"
 				 "|---------------------------------------|\n"
