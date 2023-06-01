@@ -1,5 +1,6 @@
 #include "./../include/order.h"
 #include <limits>
+#include <algorithm>
 #include <iostream>
 
 int getInt(int min, int max, std::string message)

@@ -1,6 +1,7 @@
 #include "./../include/order.h"
 #include <iomanip>
 #include <algorithm>
+#include <iterator>
 #include <iostream>
 
 Order& Order::printOrders()

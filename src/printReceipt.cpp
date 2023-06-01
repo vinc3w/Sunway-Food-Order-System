@@ -2,7 +2,9 @@
 #include "./../include/randomInt.h"
 #include <iomanip>
 #include <chrono>
+#include <algorithm>
 #include <string>
+#include <format>
 #include <iostream>
 
 std::string getTime()

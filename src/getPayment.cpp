@@ -1,4 +1,6 @@
 #include "./../include/order.h"
+#include <algorithm>
+#include <iterator>
 #include <iostream>
 
 Order& Order::getPayment()
