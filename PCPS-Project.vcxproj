@@ -134,6 +134,7 @@
     <ClCompile Include="PCPS-Project.cpp" />
     <ClCompile Include="src\getOrders.cpp" />
     <ClCompile Include="src\getPayment.cpp" />
+    <ClCompile Include="src\printCourses.cpp" />
     <ClCompile Include="src\printMenu.cpp" />
     <ClCompile Include="src\printOrders.cpp" />
     <ClCompile Include="src\printReceipt.cpp" />

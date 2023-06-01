@@ -34,6 +34,7 @@ private:
 	std::vector<std::pair<std::string_view, Count>> orders{};
 
 	Order& printMenu();
+	Order& printCourses(OrderPair& items, std::string_view categoryName);
 	Order& printOrders();
 	Order& getPayment();
 	Order& printReceipt(double totalPrice, double payment);

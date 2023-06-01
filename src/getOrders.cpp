@@ -1,16 +1,13 @@
 #include "./../include/order.h"
+#include <limits>
 #include <iostream>
 
-Order& Order::getOrders()
+int getInt(int min, int max, std::string message)
 {
-	printMenu();
-	std::cout << "\nHello, what do you want to order?\n";
-
+	int input{};
 	while (true)
 	{
-		std::cout << "Enter the number of the order: ";
-
-		int input{};
+		std::cout << message;
 		std::cin >> input;
 
 		if (std::cin.fail())
@@ -28,11 +25,60 @@ Order& Order::getOrders()
 			continue;
 		}
 
-		if (input < 0 || input > mergedMenuItems.size())
+		if (input < min || input > max)
 		{
-			std::cout << "\nInputs must be between 1 and " << mergedMenuItems.size() << ". Please try again.\n";
+			std::cout << "\nInputs must be between 1 and " << max << ". Please try again.\n";
 			continue;
 		}
+
+		break;
+	}
+	return input;
+}
+
+Order& Order::getOrders()
+{
+	printMenu();
+	std::cout << "\nHello, what do you want to order?\n";
+
+	while (true)
+	{
+		std::cout << "\nCategories"
+					 "\n1. Appetizer"
+					 "\n2. Main course"
+					 "\n3. Deserts\n";
+		int categoryIndex{ getInt(0, 3, "Enter the Category: ") };
+		OrderPair* category{};
+
+		switch (categoryIndex)
+		{
+		case 1:
+			category = &appetizers;
+			printCourses(*category, "APPETIZERS");
+			break;
+		case 2:
+			category = &mains;
+			printCourses(*category, "  MAINS   ");
+			break;
+		case 3:
+			category = &deserts;
+			printCourses(*category, " DESERTS  ");
+			break;
+		}
+
+		if (category == nullptr)
+		{
+			if (orders.empty())
+				std::cout << "\nDont waste my time. EITHER ORDER OR STAY AWAY!!!\n";
+			else
+			{
+				printOrders();
+				getPayment();
+			}
+			break;
+		}
+
+		int input{ getInt(0, static_cast<int>(category->size()), "Enter the number of the order: ") };
 
 		if (input == 0)
 		{
@@ -46,7 +92,7 @@ Order& Order::getOrders()
 			break;
 		}
 
-		const auto menuItem{ mergedMenuItems[input - 1] };
+		const auto& menuItem{ (*category)[input - 1] };
 		auto it{
 			std::find_if(
 				orders.begin(),
@@ -54,12 +100,15 @@ Order& Order::getOrders()
 				[&menuItem](const auto& item) { return item.first == menuItem.first; }
 			)
 		};
+		int quantity{ getInt(0, std::numeric_limits<int>::max(), "Enter the quantity: ") };
 		if (it == orders.end())
-			orders.push_back(std::pair(menuItem.first, 1));
+		{
+			orders.push_back(std::pair(menuItem.first, quantity));
+		}
 		else
-			++orders[std::distance(orders.begin(), it)].second;
+			orders[std::distance(orders.begin(), it)].second += quantity;
 
-		std::cout << "\nAdded " << menuItem.first <<
+		std::cout << "\nAdded x" << quantity << " " << menuItem.first <<
 					 "\nIf you do not wish to order anymore, enter '0'\n";
 	}
 	return *this;
