@@ -1,9 +1,10 @@
 #include "./../include/order.h"
 #include <limits>
+#include <string_view>
 #include <algorithm>
 #include <iostream>
 
-int getInt(int min, int max, std::string message)
+int getInt(int min, int max, std::string_view message)
 {
 	int input{};
 	while (true)
@@ -22,13 +23,13 @@ int getInt(int min, int max, std::string message)
 		if (std::cin.peek() != 10)
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout << "\nPayment must ONLY be a number, silly :(\n";
+			std::cout << "\nInput must ONLY be a number, silly :(\n";
 			continue;
 		}
 
 		if (input < min || input > max)
 		{
-			std::cout << "\nInputs must be between 1 and " << max << ". Please try again.\n";
+			std::cout << "\nInputs must be between " << min << " and " << max << ". Please try again.\n";
 			continue;
 		}
 
@@ -79,19 +80,10 @@ Order& Order::getOrders()
 			break;
 		}
 
+		std::cout << "To choose category again, enter '0'\n";
 		int input{ getInt(0, static_cast<int>(category->size()), "Enter the number of the order: ") };
 
-		if (input == 0)
-		{
-			if (orders.empty())
-				std::cout << "\nDont waste my time. EITHER ORDER OR STAY AWAY!!!\n";
-			else
-			{
-				printOrders();
-				getPayment();
-			}
-			break;
-		}
+		if (input == 0) continue;
 
 		const auto& menuItem{ (*category)[input - 1] };
 		auto it{
@@ -102,10 +94,13 @@ Order& Order::getOrders()
 			)
 		};
 		int quantity{ getInt(0, std::numeric_limits<int>::max(), "Enter the quantity: ") };
-		if (it == orders.end())
+		if (quantity == 0)
 		{
-			orders.push_back(std::pair(menuItem.first, quantity));
+			std::cout << "\nIf you do not wish to order anymore, enter '0'\n";
+			continue;
 		}
+		if (it == orders.end())
+			orders.push_back(std::pair(menuItem.first, quantity));
 		else
 			orders[std::distance(orders.begin(), it)].second += quantity;
 
