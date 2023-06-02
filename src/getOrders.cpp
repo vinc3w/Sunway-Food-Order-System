@@ -72,6 +72,7 @@ Order& Order::getOrders()
 		{
 			printOrders();
 			getPayment();
+			break;
 		}
 
 		std::cout << "To choose category again, enter '0'\n";
