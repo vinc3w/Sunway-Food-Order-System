@@ -49,7 +49,7 @@ Order& Order::getOrders()
 					 "\n1. Appetizer"
 					 "\n2. Main course"
 					 "\n3. Deserts\n";
-		int categoryIndex{ getInt(0, 3, "Enter the Category: ") };
+		int categoryIndex{ getInt(orders.empty() ? 1 : 0, 3, "Enter the Category: ") };
 		OrderPair* category{};
 
 		switch (categoryIndex)
@@ -70,14 +70,8 @@ Order& Order::getOrders()
 
 		if (category == nullptr)
 		{
-			if (orders.empty())
-				std::cout << "\nDont waste my time. EITHER ORDER OR STAY AWAY!!!\n";
-			else
-			{
-				printOrders();
-				getPayment();
-			}
-			break;
+			printOrders();
+			getPayment();
 		}
 
 		std::cout << "To choose category again, enter '0'\n";
@@ -94,18 +88,14 @@ Order& Order::getOrders()
 			)
 		};
 		int quantity{ getInt(0, std::numeric_limits<int>::max(), "Enter the quantity: ") };
-		if (quantity == 0)
-		{
-			std::cout << "\nIf you do not wish to order anymore, enter '0'\n";
-			continue;
-		}
+		if (quantity == 0) continue;
 		if (it == orders.end())
 			orders.push_back(std::pair(menuItem.first, quantity));
 		else
 			orders[std::distance(orders.begin(), it)].second += quantity;
 
-		std::cout << "\nAdded x" << quantity << " " << menuItem.first <<
-					 "\nIf you do not wish to order anymore, enter '0'\n";
+		std::cout << "\nAdded x" << quantity << " " << menuItem.first
+				  << "\nIf you do not wish to order anymore, enter '0'\n";
 	}
 	return *this;
 }
