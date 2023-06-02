@@ -131,7 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="PCPS-Project.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="src\getOrders.cpp" />
     <ClCompile Include="src\getPayment.cpp" />
     <ClCompile Include="src\printCourses.cpp" />
