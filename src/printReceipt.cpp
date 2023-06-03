@@ -3,21 +3,17 @@
 #include <iomanip>
 #include <chrono>
 #include <algorithm>
-#include <string>
-#include <format>
+#include <time.h>
+#include <ctime>
 #include <iostream>
 
-std::string getTime()
+void printTime()
 {
-	const auto now{
-		std::chrono::current_zone()->
-		to_local(std::chrono::system_clock::now()) 
-	};
-	std::string time{};
-	time += std::format("{:%D}", now);
-	time += "    ";
-	time += std::format("{:%r}", now);
-	return time;
+	auto now{ std::chrono::system_clock::now() };
+	auto now_timet = std::chrono::system_clock::to_time_t(now);
+	struct tm timeInfo;
+	::localtime_s(&timeInfo, &now_timet);
+	std::cout << std::put_time(&timeInfo, "%D") << "       " << std::put_time(&timeInfo, "%r");
 }
 
 Order& Order::printReceipt(double totalPrice, double payment)
@@ -29,7 +25,9 @@ Order& Order::printReceipt(double totalPrice, double payment)
 				 "|                RECEIPT                |\n"
 				 "|                                       |\n"
 				 "| * * * * * * * * * * * * * * * * * * * |\n"
-				 "| Sunway        " << getTime() << " |\n"
+				 "| Sunway        ";
+	printTime();
+	std::cout << " |\n"
 				 "| * * * * * * * * * * * * * * * * * * * |\n"
 				 "|                                       |\n";
 
