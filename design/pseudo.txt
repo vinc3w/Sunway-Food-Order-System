@@ -1,0 +1,192 @@
+class Order
+
+variables:
+map appetizers
+map mains
+map deserts
+map order list
+
+functions:
+printMenu()
+printOrders()
+printCourses()
+getOrders()
+getPayment()
+printReceipt(cash)
+
+end
+
+--------------------------------------------------------
+
+printMenu()
+
+loop through appetizers:
+	print appetizer
+
+loop through mains:
+	print main
+
+loop through deserts:
+	print desert
+
+end
+
+--------------------------------------------------------------
+
+getUserInput(min, max, message)
+
+int number;
+
+loop:
+	print message
+	input number
+
+	if fail to extract input
+		reset input stream status
+		wipe out all data in input stream
+		throw error
+		repeat loop
+
+	if input stream contain data
+		wipe out all data in input stream
+		throw error
+		repeat loop
+
+	if input less than min and more than max
+		throw error
+		repeat loop
+
+	return input
+
+end
+
+----------------------------------------------------
+
+printOrders()
+
+loopthrough order list:
+	print order
+
+end
+
+
+----------------------------------------------------
+
+printCourse(course, name)
+
+print name
+
+loopthrough course:
+	print course meals
+
+end
+
+----------------------------------------------------
+
+getOrders()
+
+print menu with three courses
+
+loop:
+	input category
+
+	map chosenCourse;
+
+	switch category
+	case 1:
+		chosenCourse
+		printCourse(appetizers, "appetizer")
+		break
+	case 2:
+		chosenCourse
+		printCourse(mains, "main course")
+		break
+	case 3:
+		chosenCourse
+		printCourse(deserts, "deserts")
+		break
+
+	if category is null
+		printOrders()
+		getPayment()
+		break loop
+
+	print list of meals in that category
+
+	input meal
+
+	if meal is 0
+		repeat loop
+
+	input quantity
+
+	if quantity is 0
+		repeat loop
+	else
+		add food and quantity to order list
+
+print order list
+
+input payment
+
+print receipt
+
+end
+
+----------------------------------------------------
+
+getPayment()
+
+int cash
+
+loop:
+	input cash
+
+	if fail to extract input
+		reset input stream status
+		wipe out all data in input stream
+		throw error
+		repeat loop
+
+	if input stream contain data
+		wipe out all data in input stream
+		throw error
+		repeat loop
+
+	if cash less than 0
+		throw error
+		repeat loop
+
+	int totalPrice;
+
+	loop through order list:
+		totalPrice += order price
+		
+	if cash less than totalPrice
+		throw error
+		repeat loop
+
+	printReceipt(cash)
+
+end
+
+----------------------------------------------------
+
+printReceipt(cash)
+
+print date, time
+
+loop through order:
+	print orders;
+
+print total price
+
+print cash
+
+print change
+
+print bank number
+
+print pin
+
+end
