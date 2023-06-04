@@ -13,7 +13,9 @@ void printTime()
 	auto now_timet = std::chrono::system_clock::to_time_t(now);
 	struct tm timeInfo;
 	::localtime_s(&timeInfo, &now_timet);
-	std::cout << std::put_time(&timeInfo, "%D") << "       " << std::put_time(&timeInfo, "%r");
+	std::cout << std::put_time(&timeInfo, "%m/%d/%y")
+			  << "       "
+			  << std::put_time(&timeInfo, "%H:%M:%S");
 }
 
 Order& Order::printReceipt(double totalPrice, double payment)
