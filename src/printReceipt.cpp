@@ -4,7 +4,6 @@
 #include <chrono>
 #include <algorithm>
 #include <time.h>
-#include <ctime>
 #include <iostream>
 
 void printTime()
