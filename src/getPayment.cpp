@@ -12,16 +12,21 @@ Order& Order::getPayment()
 		double payment{};
 		std::cin >> payment;
 
+		// if user input failed to be extracted form inptu stream
 		if (std::cin.fail())
 		{
+			// reset input stream state
 			std::cin.clear();
+			// wipe out input stream
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "\nPayment must be a number, dumb dumb :-)\n";
 			continue;
 		}
 
+		// if user entered letters after numbers
 		if (std::cin.peek() != 10)
 		{
+			// wipe out input stream
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "\nPayment must ONLY be a number, silly :(\n";
 			continue;

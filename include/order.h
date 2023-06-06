@@ -11,6 +11,7 @@ using OrderPair = std::vector<std::pair<std::string_view, Price>>;
 class Order
 {
 private:
+	// List of category foods and prices
 	OrderPair appetizers{{
 		{"Kerabu Mangga", 5.5},
 		{"Popia Sayur Ranggup", 2.5},
@@ -30,9 +31,12 @@ private:
 		{"Fresh Cut Fruit", 0}
 	}};
 
+	// all categoy of food and prices put together
 	OrderPair mergedMenuItems{};
+	// list of user orders and quantity
 	std::vector<std::pair<std::string_view, Count>> orders{};
 
+	// member functions
 	Order& printMenu();
 	Order& printCourses(OrderPair& items, std::string_view categoryName);
 	Order& printOrders();
@@ -41,6 +45,8 @@ private:
 public:
 	Order()
 	{
+		// when class is contructed,
+		// compile all list of food and prices into mergedMenuItems
 		for (const auto& pair : appetizers)
 			mergedMenuItems.push_back(pair);
 		for (const auto& pair : mains)
@@ -49,6 +55,7 @@ public:
 			mergedMenuItems.push_back(pair);
 	}
 
+	// member functions
 	Order& getOrders();
 };
 

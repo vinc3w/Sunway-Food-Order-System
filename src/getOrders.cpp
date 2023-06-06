@@ -12,16 +12,21 @@ int getInt(int min, int max, std::string_view message)
 		std::cout << message;
 		std::cin >> input;
 
+		// if user input failed to be extracted from input stream
 		if (std::cin.fail())
 		{
+			// reset input stream state
 			std::cin.clear();
+			// wipe out input stream
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "\nOnly number accepted as input. Please try again.\n";
 			continue;
 		}
 
+		// if user entered letters after numbers
 		if (std::cin.peek() != 10)
 		{
+			// wipe out input stream
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "\nInput must ONLY be a number, silly :(\n";
 			continue;
@@ -52,6 +57,7 @@ Order& Order::getOrders()
 		int categoryIndex{ getInt(orders.empty() ? 1 : 0, 3, "Enter the Category: ") };
 		OrderPair* category{};
 
+		// assign chosen category
 		switch (categoryIndex)
 		{
 		case 1:
@@ -68,6 +74,7 @@ Order& Order::getOrders()
 			break;
 		}
 
+		// if category is not chosen (user entered '0')
 		if (category == nullptr)
 		{
 			printOrders();
@@ -78,6 +85,7 @@ Order& Order::getOrders()
 		std::cout << "To choose category again, enter '0'\n";
 		int input{ getInt(0, static_cast<int>(category->size()), "Enter the number of the order: ") };
 
+		// go back to selecting category
 		if (input == 0) continue;
 
 		const auto& menuItem{ (*category)[input - 1] };
@@ -90,9 +98,12 @@ Order& Order::getOrders()
 		};
 		int quantity{ getInt(0, std::numeric_limits<int>::max(), "Enter the quantity: ") };
 		if (quantity == 0) continue;
+		// if order is not already in order list
 		if (it == orders.end())
+			// add order to order list
 			orders.push_back(std::pair(menuItem.first, quantity));
 		else
+			// change quantity of order
 			orders[std::distance(orders.begin(), it)].second += quantity;
 
 		std::cout << "\nAdded x" << quantity << " " << menuItem.first

@@ -17,6 +17,7 @@ private:
 	};
 	std::mt19937 mt{ ss };
 public:
+	// function to return a random number
 	int get(int length)
 	{
 		std::uniform_int_distribution dist{
